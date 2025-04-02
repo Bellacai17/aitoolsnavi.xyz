@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Tools Navigator - Your Artificial Intelligence Resource Hub</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: -25px auto 30px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #search-input {
+            flex: 1;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .search-btn {
+            background: #6e8efb;
+            border: none;
+            color: white;
+            padding: 0 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #5a7af0;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .category-btn {
+            background: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: #6e8efb;
+            color: white;
+            box-shadow: 0 4px 10px rgba(110, 142, 251, 0.3);
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 400px;
+            margin: 0 auto;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tool-img {
+            height: 320px;
+            width: 400px;
+            background-color: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .tool-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 20px;
+        }
+        
+        .tool-content {
+            padding: 15px;
+        }
+        
+        .tool-title {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .tool-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+            height: 60px;
+            overflow: hidden;
+        }
+        
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            background-color: #f0f2f5;
+            color: #666;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        
+        .tool-link {
+            display: inline-block;
+            background: #6e8efb;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .tool-link:hover {
+            background: #5a7af0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            background-color: #fff;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+            
+            .tool-card {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .tool-img {
+                width: 100%;
+                height: 320px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                border-radius: 10px;
+            }
+            
+            #search-input {
+                padding: 12px 15px;
+            }
+            
+            .search-btn {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+        
+        /* Add a back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #6e8efb;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<header>
+<h1>AI Tools Navigator</h1>
+<p class="subtitle">Discover, explore, and use the best artificial intelligence tools</p>
+</header>
+<div class="search-container">
+<div class="search-box">
+<input id="search-input" placeholder="Search for AI tools..." type="text"/>
+<button class="search-btn">Search</button>
+</div>
+</div>
+<main>
+<div class="categories">
+<button class="category-btn active" data-category="all">All</button>
+<button class="category-btn" data-category="chatbot">Chatbots</button>
+<button class="category-btn" data-category="image">Image Generation</button>
+<button class="category-btn" data-category="audio">Voice &amp; Audio</button>
+<button class="category-btn" data-category="video">Video Creation</button>
+<button class="category-btn" data-category="writing">Text &amp; Writing</button>
+<button class="category-btn" data-category="productivity">Productivity</button>
+<button class="category-btn" data-category="education">Education</button>
+</div>
+<div class="tools-grid" id="tools-container">
+<!-- Chatbot Category -->
+<div class="tool-card" data-category="chatbot">
+<div class="tool-img">
+<img alt="ChatGPT" src="./images/ChatGPT.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">ChatGPT</h3>
+<p class="tool-desc">Advanced AI conversation system by OpenAI that can answer questions, write content, code, and more.</p>
+<div class="tool-tags">
+<span class="tag">Chatbot</span>
+<span class="tag">Writing Assistant</span>
+<span class="tag">Free/Paid</span>
+</div>
+<a class="tool-link" href="https://chat.openai.com/" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<div class="tool-card" data-category="chatbot">
+<div class="tool-img">
+<img alt="Claude" src="./images/Claude.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Claude</h3>
+<p class="tool-desc">Conversational AI assistant developed by Anthropic, excelling at thoughtful dialogue and handling long texts.</p>
+<div class="tool-tags">
+<span class="tag">Chatbot</span>
+<span class="tag">Analysis</span>
+<span class="tag">Free/Paid</span>
+</div>
+<a class="tool-link" href="https://claude.ai/" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<!-- Image Generation Category -->
+<div class="tool-card" data-category="image">
+<div class="tool-img">
+<img alt="Midjourney" src="./images/Midjourney.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Midjourney</h3>
+<p class="tool-desc">Powerful AI image generator that creates high-quality artwork from text descriptions.</p>
+<div class="tool-tags">
+<span class="tag">Image Generation</span>
+<span class="tag">Art Creation</span>
+<span class="tag">Paid</span>
+</div>
+<a class="tool-link" href="https://www.midjourney.com/" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<!-- Voice & Audio Category -->
+<div class="tool-card" data-category="audio">
+<div class="tool-img">
+<img alt="Murf AI" src="./images/murf_ai.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Murf AI</h3>
+<p class="tool-desc">Professional AI voice generator offering natural, realistic voiceover and text-to-speech services.</p>
+<div class="tool-tags">
+<span class="tag">Voice Synthesis</span>
+<span class="tag">Voiceover</span>
+<span class="tag">Free/Paid</span>
+</div>
+<a class="tool-link" href="https://murf.ai/" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<div class="tool-card" data-category="audio">
+<div class="tool-img">
+<img alt="Whisper" src="./images/Whisper.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Whisper</h3>
+<p class="tool-desc">Powerful speech recognition system by OpenAI supporting transcription and translation in multiple languages.</p>
+<div class="tool-tags">
+<span class="tag">Speech Recognition</span>
+<span class="tag">Transcription</span>
+<span class="tag">Open Source</span>
+</div>
+<a class="tool-link" href="https://openai.com/research/whisper" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<!-- Video Creation Category -->
+<div class="tool-card" data-category="video">
+<div class="tool-img">
+<img alt="Runway" src="./images/runway.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Runway</h3>
+<p class="tool-desc">AI video editing and generation platform enabling creators to produce amazing video content using AI technology.</p>
+<div class="tool-tags">
+<span class="tag">Video Generation</span>
+<span class="tag">Video Editing</span>
+<span class="tag">Paid</span>
+</div>
+<a class="tool-link" href="https://runwayml.com/" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<div class="tool-card" data-category="video">
+<div class="tool-img">
+<img alt="Synthesia" src="./images/synthesia.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Synthesia</h3>
+<p class="tool-desc">AI video generation platform that creates realistic digital human videos from just text input.</p>
+<div class="tool-tags">
+<span class="tag">AI Presenters</span>
+<span class="tag">Marketing Videos</span>
+<span class="tag">Paid</span>
+</div>
+<a class="tool-link" href="https://www.synthesia.io/" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<!-- Text & Writing Category -->
+<div class="tool-card" data-category="writing">
+<div class="tool-img">
+<img alt="Grammarly" src="./images/grammarly.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Grammarly</h3>
+<p class="tool-desc">AI writing assistant that checks grammar, spelling errors, and provides writing improvement suggestions.</p>
+<div class="tool-tags">
+<span class="tag">Writing Aid</span>
+<span class="tag">Grammar Check</span>
+<span class="tag">Free/Paid</span>
+</div>
+<a class="tool-link" href="https://www.grammarly.com/" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<div class="tool-card" data-category="writing">
+<div class="tool-img">
+<img alt="Notion AI" src="./images/notion_ai.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Notion AI</h3>
+<p class="tool-desc">AI writing assistant integrated within Notion that helps draft, edit, and summarize content.</p>
+<div class="tool-tags">
+<span class="tag">Writing Assistant</span>
+<span class="tag">Content Generation</span>
+<span class="tag">Paid</span>
+</div>
+<a class="tool-link" href="https://www.notion.so/product/ai" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<!-- Productivity Category -->
+<div class="tool-card" data-category="productivity">
+<div class="tool-img">
+<img alt="Otter.ai" src="./images/otter_ai.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Otter.ai</h3>
+<p class="tool-desc">Real-time meeting notes and transcription tool that automatically captures important insights and action items.</p>
+<div class="tool-tags">
+<span class="tag">Meeting Notes</span>
+<span class="tag">Transcription</span>
+<span class="tag">Free/Paid</span>
+</div>
+<a class="tool-link" href="https://otter.ai/" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<div class="tool-card" data-category="productivity">
+<div class="tool-img">
+<img alt="Loom" src="./images/loom.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Loom</h3>
+<p class="tool-desc">Video recording and sharing platform with integrated AI summaries to improve remote work efficiency.</p>
+<div class="tool-tags">
+<span class="tag">Video Recording</span>
+<span class="tag">AI Summary</span>
+<span class="tag">Free/Paid</span>
+</div>
+<a class="tool-link" href="https://www.loom.com/" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<!-- Education Category -->
+<div class="tool-card" data-category="education">
+<div class="tool-img">
+<img alt="Duolingo" src="./images/duolingo_screenshot.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Duolingo</h3>
+<p class="tool-desc">Language learning app using AI technology to provide personalized learning experiences and real-time feedback.</p>
+<div class="tool-tags">
+<span class="tag">Language Learning</span>
+<span class="tag">Education</span>
+<span class="tag">Free/Paid</span>
+</div>
+<a class="tool-link" href="https://www.duolingo.com/" target="_blank">Visit Website</a>
+</div>
+</div>
+
+<div class="tool-card" data-category="education">
+<div class="tool-img">
+<img alt="Quizlet" src="./images/Quizlet.jpg"/>
+</div>
+<div class="tool-content">
+<h3 class="tool-title">Quizlet</h3>
+<p class="tool-desc">Learning platform that uses AI to generate study cards and quizzes, helping students master various subjects.</p>
+<div class="tool-tags">
+<span class="tag">Study Assistant</span>
+<span class="tag">Quiz Generation</span>
+<span class="tag">Free/Paid</span>
+</div>
+<a class="tool-link" href="https://quizlet.com/" target="_blank">Visit Website</a>
+</div>
+</div>
+</div>
+</main>
+<footer>
+<p>© 2025 AI Tools Navigator | AI Resource Center for Regular Users</p>
+<p>This site aims to help you discover and use the latest, most practical AI tools. All tools are external links; please read each tool's terms of use before using.</p>
+</footer>
+<div class="back-to-top" id="back-to-top">↑</div>
+<script>
+        // Category filtering functionality
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const toolCards = document.querySelectorAll('.tool-card');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Add highlight state
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const category = button.getAttribute('data-category');
+                
+                toolCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.querySelector('.search-btn');
+        
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            toolCards.forEach(card => {
+                const title = card.querySelector('.tool-title').textContent.toLowerCase();
+                const desc = card.querySelector('.tool-desc').textContent.toLowerCase();
+                const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                
+                if (searchTerm === '' || 
+                    title.includes(searchTerm) || 
+                    desc.includes(searchTerm) || 
+                    tags.some(tag => tag.includes(searchTerm))) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Reset category button highlight state
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            categoryButtons[0].classList.add('active'); // Default select "All"
+        }
+        
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
